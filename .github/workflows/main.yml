@@ -1,0 +1,23 @@
+name: Build static ios xcframework
+on: [workflow_dispatch, pull_request]
+
+jobs:
+  build:
+    runs-on: macos-12
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Fetch third party libraries
+      run: |
+        echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+        ./tools/fetch_third_party.sh
+
+    - name: Create xcframework
+      run: ./tools/create_ios_xcframework.sh
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: xcframework
+        path: xmp.zip
