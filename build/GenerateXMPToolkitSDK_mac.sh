@@ -14,27 +14,27 @@ abspath=$(cd ${0%/*} && echo $PWD/${0##*/})
 clean()
 {
 	echo "Cleaning..."
-	if [ -e xcode ] 
+	if [ -e xcode ]
 	then
 	rm -rf xcode
-	fi	
+	fi
 	if [ -e ../XMPCore/build/xcode ]
 	then
 	rm -rf ../XMPCore/build/xcode
 	fi
-	if [ -e ../XMPFiles/build/xcode ] 
+	if [ -e ../XMPFiles/build/xcode ]
 	then
 	rm -rf ../XMPFiles/build/xcode
 	fi
-	if [ -e ../public/libraries/macintosh ] 
+	if [ -e ../public/libraries/macintosh ]
 	then
 	rm -rf ../public/libraries/macintosh
 	fi
-	if [ -e ../public/libraries/ios ] 
+	if [ -e ../public/libraries/ios ]
 	then
 	rm -rf ../public/libraries/ios
 	fi
-	
+
 	echo "Done"
 	exit 0;
 }
@@ -106,14 +106,19 @@ TOOLCHAIN="Toolchain_ios.cmake"
 Generate
 }
 
-echo "1. Clean All"
-echo "2. Generate XMPToolkitSDK Dynamic 64"
-echo "3. Generate XMPToolkitSDK Static  64"
-echo "4. Generate XMPToolkitSDK Static iOS"
-echo "5. Generate XMPToolkitSDK Dynamic iOS"
-echo "6. Generate All"
+if [[ -n "$1" ]]; then
+	choice="$1"
+else
+	echo "1. Clean All"
+	echo "2. Generate XMPToolkitSDK Dynamic 64"
+	echo "3. Generate XMPToolkitSDK Static  64"
+	echo "4. Generate XMPToolkitSDK Static iOS"
+	echo "5. Generate XMPToolkitSDK Dynamic iOS"
+	echo "6. Generate All"
 
-read -p "Enter your choice: " choice
+	read -p "Enter your choice: " choice
+fi
+
 case $choice in
   1) clean;;
   2) SDKDynamic64;;
@@ -125,5 +130,3 @@ case $choice in
 esac
 
 exit 0
-
-
